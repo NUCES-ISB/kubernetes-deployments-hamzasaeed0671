@@ -1,0 +1,43 @@
+Name:                   flask-app
+Namespace:              default
+CreationTimestamp:      Tue, 11 Mar 2025 23:07:19 +0500
+Labels:                 app=flask-app
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=flask-app
+Replicas:               1 desired | 1 updated | 1 total | 0 available | 1 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=flask-app
+  Containers:
+   flask-app:
+    Image:      flask-app:latest
+    Port:       5000/TCP
+    Host Port:  0/TCP
+    Liveness:   http-get http://:5000/health delay=30s timeout=1s period=10s #success=1 #failure=3
+    Readiness:  http-get http://:5000/health delay=5s timeout=1s period=5s #success=1 #failure=3
+    Environment:
+      POSTGRES_USER:      <set to the key 'postgres-user' in secret 'postgres-secret'>      Optional: false
+      POSTGRES_PASSWORD:  <set to the key 'postgres-password' in secret 'postgres-secret'>  Optional: false
+      POSTGRES_DB:        <set to the key 'postgres-db' of config map 'postgres-config'>    Optional: false
+      POSTGRES_HOST:      postgres
+      POSTGRES_PORT:      5432
+    Mounts:               <none>
+  Volumes:                <none>
+  Node-Selectors:         <none>
+  Tolerations:            <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      False   MinimumReplicasUnavailable
+  Progressing    True    ReplicaSetUpdated
+OldReplicaSets:  <none>
+NewReplicaSet:   flask-app-69cb47688c (1/1 replicas created)
+Events:
+  Type    Reason             Age                  From                   Message
+  ----    ------             ----                 ----                   -------
+  Normal  ScalingReplicaSet  7m45s                deployment-controller  Scaled up replica set flask-app-69cb47688c from 0 to 2
+  Normal  ScalingReplicaSet  7m12s                deployment-controller  Scaled up replica set flask-app-69cb47688c from 2 to 4
+  Normal  ScalingReplicaSet  17s                  deployment-controller  Scaled up replica set flask-app-69cb47688c from 1 to 4
+  Normal  ScalingReplicaSet  16s (x2 over 7m11s)  deployment-controller  Scaled down replica set flask-app-69cb47688c from 4 to 1

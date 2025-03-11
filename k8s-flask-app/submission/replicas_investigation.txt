@@ -1,0 +1,4 @@
+Min and max replicas investigation:
+The flask-deployment.yaml file specifies:
+- Current replicas: 2
+- We tested scaling to 4 replicas and down to 1 replica

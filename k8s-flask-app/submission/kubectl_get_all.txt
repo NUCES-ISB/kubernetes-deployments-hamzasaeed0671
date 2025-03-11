@@ -1,0 +1,16 @@
+NAME                             READY   STATUS              RESTARTS   AGE
+pod/flask-app-69cb47688c-frmxb   0/1     ErrImageNeverPull   0          7m44s
+pod/postgres-5786c99ff-kqvs8     1/1     Running             0          7m45s
+
+NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+service/flask-app    NodePort    10.107.225.109   <none>        5000:30000/TCP   7m43s
+service/kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP          12m
+service/postgres     ClusterIP   10.107.162.114   <none>        5432/TCP         7m45s
+
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/flask-app   0/1     1            0           7m44s
+deployment.apps/postgres    1/1     1            1           7m45s
+
+NAME                                   DESIRED   CURRENT   READY   AGE
+replicaset.apps/flask-app-69cb47688c   1         1         0       7m44s
+replicaset.apps/postgres-5786c99ff     1         1         1       7m45s
